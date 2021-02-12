@@ -1,0 +1,53 @@
+<component name="ArtifactManager">
+  <artifact type="javafx" name="RotR-Launcher">
+    <output-path>$PROJECT_DIR$/out/artifacts/RotR_Launcher</output-path>
+    <properties id="javafx-properties">
+      <options>
+        <option name="alias" value="" />
+        <option name="appClass" value="ru.zont.rotrlauncher.app.Application" />
+        <option name="customManifestAttributes">
+          <list>
+            <JavaFxManifestAttribute>
+              <option name="name" value="Class-Path" />
+              <option name="value" value="apiguardian-api-1.1.0.jar gson-2.8.6.jar mysql-connector-java-8.0.23.jar protobuf-java-3.11.4.jar" />
+            </JavaFxManifestAttribute>
+            <JavaFxManifestAttribute>
+              <option name="name" value="" />
+              <option name="value" value="" />
+            </JavaFxManifestAttribute>
+          </list>
+        </option>
+        <option name="description" value="" />
+        <option name="enabledSigning" value="true" />
+        <option name="height" value="648" />
+        <option name="htmlPlaceholderId" value="" />
+        <option name="icons">
+          <JavaFxApplicationIcons>
+            <option name="linuxIcon" value="$PROJECT_DIR$/src/main/resources/pic/rotr.png" />
+            <option name="macIcon" value="$PROJECT_DIR$/src/main/resources/pic/rotr.icns" />
+            <option name="windowsIcon" value="$PROJECT_DIR$/src/main/resources/pic/rotr.ico" />
+          </JavaFxApplicationIcons>
+        </option>
+        <option name="keystore" value="" />
+        <option name="nativeBundle" value="all" />
+        <option name="title" value="Revenge of the Republic Launcher" />
+        <option name="vendor" value="RotR Team, ZONT_" />
+        <option name="version" value="0.1" />
+        <option name="width" value="1075" />
+      </options>
+    </properties>
+    <root id="root">
+      <element id="archive" name="RotR_Launcher.jar">
+        <element id="directory" name="META-INF">
+          <element id="file-copy" path="$PROJECT_DIR$/src/main/java/META-INF/MANIFEST.MF" />
+        </element>
+        <element id="module-output" name="RotR-Launcher.main" />
+        <element id="dir-copy" path="$PROJECT_DIR$/src/main/resources" />
+      </element>
+      <element id="library" level="project" name="Gradle: com.google.code.gson:gson:2.8.6" />
+      <element id="library" level="project" name="Gradle: com.google.protobuf:protobuf-java:3.11.4" />
+      <element id="library" level="project" name="Gradle: mysql:mysql-connector-java:8.0.23" />
+      <element id="library" level="project" name="Gradle: org.apiguardian:apiguardian-api:1.1.0" />
+    </root>
+  </artifact>
+</component>

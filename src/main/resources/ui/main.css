@@ -1,0 +1,116 @@
+
+@font-face {
+    src: url('/fonts/EtelkaMonospace.otf');
+}
+
+@font-face {
+    src: url('/fonts/EtelkaMonospace-Bold.otf');
+}
+
+.background {
+    -fx-background-color: transparent;
+    /*-fx-background-image: url('/rotr_background.png');*/
+    /*-fx-background-size: 1075px 648px;*/
+    /*-fx-background-repeat: no-repeat;*/
+}
+
+.control-button {
+    -fx-background-color: transparent;
+    -fx-skin: "ru.zont.rotrlauncher.app.FadeInSkin";
+}
+
+.btn-close {
+    -fx-graphic: url('/pic/close.png');
+}
+
+.btn-mini {
+    -fx-graphic: url('/pic/mini.png');
+}
+
+.btn-settings {
+    -fx-graphic: url('/pic/settings.png');
+}
+
+.btn-dis {
+    -fx-graphic: url('/pic/ds.png');
+}
+
+.btn-vk {
+    -fx-graphic: url('/pic/vk.png');
+}
+
+.btn-text {
+    -fx-font-family: 'Etelka Monospace Pro';
+    -fx-font-style: normal;
+    -fx-font-weight: normal;
+    -fx-font-size: 14px;
+    -fx-line-height: 16px;
+    -fx-text-alignment: center;
+    -fx-text-fill: #FFFFFF;
+}
+
+.btn-text-underscore:hover {
+    -fx-underline: true;
+}
+
+.btn-connect {
+    -fx-background-color: linear-gradient(to right, #0052D4 0%, #4364F7 50%, #6FB1FC 100%);
+    -fx-background-radius: 12px;
+    -fx-effect: dropshadow( one-pass-box, #0085FF, 17, -3, 0, 0 );
+    -fx-skin: "ru.zont.rotrlauncher.app.ConnectSkin";
+}
+
+.btn-connect:disabled {
+    -fx-effect: none;
+    -fx-background-color: linear-gradient(to right, #626262 0%, #8A8A8A 50%, #B4B4B4 100%);
+    -fx-opacity: 1;
+}
+
+.btn-location {
+    -fx-background-color: transparent;
+    -fx-text-alignment: left;
+}
+
+.title {
+    -fx-font-family: 'Etelka Monospace Pro';
+    -fx-font-style: normal;
+    -fx-font-weight: bold;
+    -fx-font-size: 24px;
+    -fx-line-height: 28px;
+    -fx-text-fill: #FFFFFF;
+}
+
+.body {
+    -fx-font-family: 'Etelka Monospace Pro';
+    -fx-font-style: normal;
+    -fx-font-weight: normal;
+    -fx-font-size: 12px;
+    -fx-line-height: 14px;
+    -fx-text-fill: #FFFFFF;
+}
+
+.online {
+    -fx-font-family: 'Etelka Monospace Pro';
+    -fx-font-style: normal;
+    -fx-font-weight: bold;
+    -fx-font-size: 12px;
+    -fx-line-height: 14px;
+    -fx-text-fill: #00FF19;
+}
+
+.dir {
+    -fx-font-family: 'Etelka Monospace Pro';
+    -fx-font-style: normal;
+    -fx-font-weight: normal;
+    -fx-font-size: 10px;
+    -fx-line-height: 12px;
+    -fx-text-fill: #c9c9c9;
+}
+
+.dir-corrupted {
+    -fx-text-fill: #ff3030;
+    -fx-font-weight: bold;
+}
+
+
+

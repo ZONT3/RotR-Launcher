@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="root" prefHeight="648.0" prefWidth="1075.0" styleClass="background" stylesheets="@main.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.zont.rotrlauncher.app.MainController">
+   <children>
+      <ImageView fx:id="background" fitHeight="648.0" fitWidth="1075.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../pic/rotr_background.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="btn_close" mnemonicParsing="false" prefHeight="21.0" prefWidth="22.0" stylesheets="@main.css" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="18.0">
+         <styleClass>
+            <String fx:value="btn-close" />
+            <String fx:value="control-button" />
+         </styleClass></Button>
+      <Button fx:id="btn_mini" mnemonicParsing="false" prefHeight="21.0" prefWidth="22.0" stylesheets="@main.css" AnchorPane.rightAnchor="71.0" AnchorPane.topAnchor="21.0">
+         <styleClass>
+            <String fx:value="btn-mini" />
+            <String fx:value="control-button" />
+         </styleClass></Button>
+      <Button fx:id="btn_settings" layoutX="992.0" layoutY="31.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="22.0" stylesheets="@main.css" AnchorPane.rightAnchor="118.0" AnchorPane.topAnchor="17.0">
+         <styleClass>
+            <String fx:value="btn-settings" />
+            <String fx:value="control-button" />
+         </styleClass>
+      </Button>
+      <Button fx:id="btn_dis" layoutX="1025.0" layoutY="235.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="22.0" stylesheets="@main.css" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="235.0">
+         <styleClass>
+            <String fx:value="btn-dis" />
+            <String fx:value="control-button" />
+         </styleClass></Button>
+      <Button fx:id="btn_vk" layoutX="1025.0" layoutY="194.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="22.0" stylesheets="@main.css" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="194.0">
+         <styleClass>
+            <String fx:value="control-button" />
+            <String fx:value="btn-vk" />
+         </styleClass></Button>
+      <Button fx:id="btn_connect" layoutX="367.0" layoutY="450.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="155.0" stylesheets="@main.css" text="Подключиться" textAlignment="CENTER" textFill="WHITE" AnchorPane.rightAnchor="553.0" AnchorPane.topAnchor="450.0">
+         <styleClass>
+            <String fx:value="btn-connect" />
+            <String fx:value="btn-text" />
+         </styleClass>
+         <font>
+            <Font size="14.0" />
+         </font></Button>
+      <Button fx:id="btn_locate" layoutX="625.0" layoutY="453.0" mnemonicParsing="false" stylesheets="@main.css" text="Указать путь к игре" AnchorPane.leftAnchor="625.0" AnchorPane.topAnchor="453.0">
+         <styleClass>
+            <String fx:value="btn-text" />
+            <String fx:value="btn-text-underscore" />
+            <String fx:value="btn-location" />
+         </styleClass>
+         <font>
+            <Font size="14.0" />
+         </font></Button>
+      <Label layoutX="367.0" layoutY="159.0" styleClass="title" text="Revenge of the Republic" textFill="WHITE">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label alignment="TOP_LEFT" layoutX="367.0" layoutY="194.0" prefHeight="163.0" prefWidth="440.0" styleClass="body" text="&quot;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&quot;" textFill="WHITE" wrapText="true" />
+      <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="352.0" layoutY="353.0" pickOnBounds="true" preserveRatio="true">
+         <Image url="@../pic/lamp-online.png" />
+      </ImageView>
+      <TextFlow layoutX="384.0" layoutY="357.0" prefHeight="25.0" prefWidth="307.0" styleClass="body">
+         <children>
+            <Text fill="WHITE" text="Онлайн " textAlignment="CENTER" />
+            <Text fx:id="online" fill="#15ff00" styleClass="online" text="14/88" textAlignment="CENTER" />
+            <Text fx:id="online_players" fill="WHITE" text=" игроков" textAlignment="CENTER" />
+         </children>
+         <padding>
+            <Insets bottom="5.0" top="5.0" />
+         </padding>
+      </TextFlow>
+      <Label fx:id="dir" layoutX="626.0" layoutY="485.0" maxWidth="144.0" prefWidth="144.0" textFill="#c9c9c9" AnchorPane.bottomAnchor="148.0" AnchorPane.leftAnchor="635.0">
+         <font>
+            <Font size="10.0" />
+         </font></Label>
+   </children>
+</AnchorPane>

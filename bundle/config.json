@@ -1,0 +1,42 @@
+{
+  "application": {
+    "id": 809017491648806932,
+    "manifests": [
+      {
+        "label": "rotr-mods",
+        "local_root": "./mods",
+        "file_rules": {
+          "mappings": [
+            {
+              "local_path": ".",
+              "install_path": "./app/mods"
+            }
+          ]
+        }
+      },
+      {
+        "label": "rotr-launcher/win",
+        "platforms": ["win32", "win64"],
+        "locales": [],
+        "local_root": "./bin",
+        "file_rules": {
+          "mappings": [
+            {
+              "local_path": ".",
+              "install_path": "."
+            }
+          ]
+        },
+        "launch_options": [
+          {
+            "name": "Revenge of the Republic",
+            "executable": "RotR-Launcher.exe",
+            "arguments": [],
+            "platforms": ["win32", "win64"],
+            "working_dir": "./"
+          }
+        ]
+      }
+    ]
+  }
+}
