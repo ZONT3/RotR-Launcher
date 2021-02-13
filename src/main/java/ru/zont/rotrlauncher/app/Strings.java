@@ -22,6 +22,6 @@ public class Strings {
     }
 
     public static String countPlayers(int count) {
-        return getPlural(count, STR.getString("plurals.players.other"), STR.getString("plurals.players.few"), STR.getString("plurals.players.other"));
+        return getPlural(count, STR.getString("plurals.players.one"), STR.getString("plurals.players.few"), STR.getString("plurals.players.other"));
     }
 }
