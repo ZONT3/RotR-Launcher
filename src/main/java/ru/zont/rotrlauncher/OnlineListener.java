@@ -7,7 +7,7 @@ import java.sql.*;
 import java.util.function.Consumer;
 
 public class OnlineListener extends Thread implements ReportingError {
-    private Consumer<Integer> update;
+    private final Consumer<Integer> update;
     private Consumer<Throwable> onError;
 
     public OnlineListener(Consumer<Integer> update) {

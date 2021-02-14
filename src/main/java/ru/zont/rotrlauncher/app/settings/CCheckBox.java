@@ -1,7 +1,6 @@
 package ru.zont.rotrlauncher.app.settings;
 
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
 
 
 public class CCheckBox extends SettingsPane {

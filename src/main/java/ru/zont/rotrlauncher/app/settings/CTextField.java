@@ -1,7 +1,6 @@
 package ru.zont.rotrlauncher.app.settings;
 
 import javafx.collections.ObservableList;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 public class CTextField extends SettingsPane {
