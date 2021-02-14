@@ -32,29 +32,41 @@ public class Application extends javafx.application.Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage stage) throws Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/main.fxml"));
+        Scene scene = new Scene(loader.load());
+
+        controller = loader.getController();
+        primaryStage = stage;
+
+        scene.setFill(Color.TRANSPARENT);
+        primaryStage.setResizable(false);
+        primaryStage.initStyle(StageStyle.TRANSPARENT);
         primaryStage.setTitle("Revenge of the Republic");
         primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/pic/rotr.png")));
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/main.fxml"));
-        Scene scene = new Scene(loader.load());
-        controller = loader.getController();
+        setDraggable();
+        setupOnActions();
 
-        scene.setFill(Color.TRANSPARENT);
+        primaryStage.setScene(scene);
+        primaryStage.show();
 
-        this.primaryStage = primaryStage;
-        this.primaryStage.setResizable(false);
-        primaryStage.initStyle(StageStyle.TRANSPARENT);
+        checkOptions();
+        updPath(getArmaDir());
 
-        controller.root.setOnMousePressed(event -> {
-            xOffset = event.getSceneX();
-            yOffset = event.getSceneY();
-        });
-        controller.root.setOnMouseDragged(event -> {
-            primaryStage.setX(event.getScreenX() - xOffset);
-            primaryStage.setY(event.getScreenY() - yOffset);
-        });
+        setupHandlers();
+    }
 
+    private void setupHandlers() {
+        onlineListener = new OnlineListener(i -> Platform.runLater(() -> {
+            controller.online.setText(String.format("%02d", i));
+            controller.online_players.setText(" " + Strings.countPlayers(i));
+        }));
+        onlineListener.setOnError(Commons.onErrorWrapper());
+        onlineListener.start();
+    }
+
+    private void setupOnActions() {
         controller.btn_connect.setOnAction(event -> connect());
         controller.btn_close.setOnAction(event -> primaryStage.close());
         controller.btn_locate.setOnAction(event ->
@@ -64,19 +76,17 @@ public class Application extends javafx.application.Application {
                 Commons.wrapErrors(() -> Desktop.getDesktop().browse(URI.create("https://vk.com/revenge_of_the_republic"))) );
         controller.btn_dis.setOnAction(event ->
                 Commons.wrapErrors(() -> Desktop.getDesktop().browse(URI.create("https://discord.gg/MYHY27DrSQ"))) );
+    }
 
-        primaryStage.setScene(scene);
-        primaryStage.show();
-
-        checkOptions();
-        updPath(getArmaDir());
-
-        onlineListener = new OnlineListener(i -> Platform.runLater(() -> {
-            controller.online.setText(String.format("%02d", i));
-            controller.online_players.setText(" " + Strings.countPlayers(i));
-        }));
-        onlineListener.setOnError(Commons.onErrorWrapper());
-        onlineListener.start();
+    private void setDraggable() {
+        controller.root.setOnMousePressed(event -> {
+            xOffset = event.getSceneX();
+            yOffset = event.getSceneY();
+        });
+        controller.root.setOnMouseDragged(event -> {
+            primaryStage.setX(event.getScreenX() - xOffset);
+            primaryStage.setY(event.getScreenY() - yOffset);
+        });
     }
 
     @Override
