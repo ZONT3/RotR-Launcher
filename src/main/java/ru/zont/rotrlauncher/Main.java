@@ -1,8 +1,5 @@
 package ru.zont.rotrlauncher;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
-
 import java.io.File;
 import java.sql.*;
 import java.util.function.Consumer;
@@ -26,8 +23,10 @@ public class Main extends Thread implements ReportingError {
             if (Mods.getVersion() != actualVersion)
                 throw new ModsOutdatedException();
 
-            File armaDir = Options.getArmaDir();
+            File armaDir = Config.getArmaDir();
             String params = buildParams(armaDir);
+
+            System.out.println("Starting arma with params: " + params);
 
             Runtime.getRuntime().exec(String.format("cmd /c \"%s\"", params), null, armaDir);
         } catch (Throwable e) {
@@ -59,11 +58,13 @@ public class Main extends Thread implements ReportingError {
         }
 
         StringBuilder builder = new StringBuilder();
-        builder.append("\"").append(file.getAbsolutePath()).append("\"")
-                .append(" ").append("-skipIntro")
-                .append(" ").append("-noSplash")
-                .append(" ").append("-enableHT")
-                .append(" ").append("-hugePages");
+        builder.append("\"").append(file.getAbsolutePath()).append("\"");
+        if (Config.getSettingB(Config.PREFIX_GAME, "skipIntro"))
+            builder.append(" ").append("-skipIntro");
+        if (Config.getSettingB(Config.PREFIX_GAME, "noSplash"))
+            builder.append(" ").append("-noSplash");
+        builder.append(" ").append("-enableHT");
+        builder.append(" ").append("-hugePages");
 
         builder.append(" ")
                 .append("\"-mod=")

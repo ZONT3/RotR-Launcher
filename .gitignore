@@ -6,3 +6,4 @@
 /out/
 /bundle/mods
 /bundle/bin
+/src/main/resources/version.properties

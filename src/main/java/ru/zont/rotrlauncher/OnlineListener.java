@@ -13,6 +13,7 @@ public class OnlineListener extends Thread implements ReportingError {
     public OnlineListener(Consumer<Integer> update) {
         super("OnlineListenerThread");
         this.update = update;
+        setDaemon(true);
     }
 
     @SuppressWarnings("BusyWait")

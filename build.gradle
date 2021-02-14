@@ -3,7 +3,7 @@ plugins {
 }
 
 group 'ru.zont'
-version '0.1'
+version '0.2-pre'
 
 repositories {
     mavenCentral()
@@ -30,15 +30,16 @@ jar {
     }
 }
 
-task fatJar(type: Jar) {
-    manifest.from jar.manifest
-    classifier = 'all'
-    from {
-        configurations.runtime.collect { it.isDirectory() ? it : zipTree(it) }
-    } {
-        exclude "META-INF/*.SF"
-        exclude "META-INF/*.DSA"
-        exclude "META-INF/*.RSA"
+task createProperties(dependsOn: processResources) {
+    doLast {
+        new File("$projectDir/src/main/resources/version.properties").withWriter { w ->
+            Properties p = new Properties()
+            p['version'] = project.version.toString()
+            p.store w, null
+        }
     }
-    with jar
+}
+
+classes {
+    dependsOn createProperties
 }

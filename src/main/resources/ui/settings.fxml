@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane styleClass="background" stylesheets="@main.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.zont.rotrlauncher.app.settings.SettingsStageController">
+   <children>
+      <GridPane style="-fx-background-color: rgba(0,6,35,0.96);" stylesheets="@main.css">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="570.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="700.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <VBox style="-fx-background-color: rgba(255,255,255,0.07);">
+               <children>
+                  <Label alignment="CENTER" maxHeight="45.0" maxWidth="200.0" prefHeight="45.0" prefWidth="200.0" styleClass="settings-item" stylesheets="@main.css" text="Настройки лаунчера" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="btn_sect_game" alignment="CENTER" maxHeight="45.0" maxWidth="200.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="200.0" styleClass="settings-item" text="Настройки игры" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btn_sect_authors" alignment="CENTER" layoutX="10.0" layoutY="55.0" maxHeight="45.0" maxWidth="200.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="200.0" styleClass="settings-item" text="Авторы модификаций" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+               </children>
+            </VBox>
+            <ScrollPane GridPane.columnIndex="1">
+               <GridPane.margin>
+                  <Insets left="18.0" />
+               </GridPane.margin>
+               <content>
+                  <VBox fx:id="window" style="-fx-background-color: transparent;" styleClass="background">
+                     <children>
+                        <GridPane>
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="50.0" percentWidth="30.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="50.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="45.0" prefHeight="45.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Label text="KEKKEKEKEKEKEKE" textFill="WHITE" wrapText="true">
+                                 <GridPane.margin>
+                                    <Insets right="5.0" />
+                                 </GridPane.margin></Label>
+                              <TextField maxWidth="200.0" GridPane.columnIndex="1" />
+                           </children>
+                        </GridPane>
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </VBox>
+               </content>
+            </ScrollPane>
+         </children>
+      </GridPane>
+      <Button fx:id="btn_close" mnemonicParsing="false" prefHeight="21.0" prefWidth="22.0" stylesheets="@main.css" AnchorPane.rightAnchor="26.0" AnchorPane.topAnchor="16.0">
+         <styleClass>
+            <String fx:value="btn-close" />
+            <String fx:value="control-button" />
+         </styleClass></Button>
+      <Label fx:id="version" alignment="CENTER" maxHeight="45.0" maxWidth="200.0" prefHeight="45.0" prefWidth="200.0" styleClass="settings-item" stylesheets="@main.css" text="RotR Launcher v.UNKNOWN" textAlignment="CENTER" textFill="WHITE" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

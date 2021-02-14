@@ -10,6 +10,8 @@ import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import ru.zont.rotrlauncher.*;
+import ru.zont.rotrlauncher.app.settings.GameSettings;
+import ru.zont.rotrlauncher.app.settings.SettingsStage;
 
 import java.awt.*;
 import java.io.File;
@@ -19,6 +21,7 @@ import static ru.zont.rotrlauncher.app.Strings.STR;
 
 public class Application extends javafx.application.Application {
 
+    private GameSettings settings;
     private double xOffset = 0;
     private double yOffset = 0;
 
@@ -45,14 +48,15 @@ public class Application extends javafx.application.Application {
         primaryStage.setTitle("Revenge of the Republic");
         primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/pic/rotr.png")));
 
+        checkOptions();
+        updPath(getArmaDir());
+        settings = new GameSettings();
+
         setDraggable();
         setupOnActions();
 
         primaryStage.setScene(scene);
         primaryStage.show();
-
-        checkOptions();
-        updPath(getArmaDir());
 
         setupHandlers();
     }
@@ -62,20 +66,21 @@ public class Application extends javafx.application.Application {
             controller.online.setText(String.format("%02d", i));
             controller.online_players.setText(" " + Strings.countPlayers(i));
         }));
-        onlineListener.setOnError(Commons.onErrorWrapper());
+        onlineListener.setOnError(AppCommons.onErrorWrapper());
         onlineListener.start();
     }
 
     private void setupOnActions() {
         controller.btn_connect.setOnAction(event -> connect());
-        controller.btn_close.setOnAction(event -> primaryStage.close());
+        controller.btn_close.setOnAction(event -> AppCommons.fadeOut(controller.root, e -> primaryStage.close()));
+        controller.btn_settings.setOnAction(event -> new SettingsStage(settings).show());
         controller.btn_locate.setOnAction(event ->
-                Commons.wrapErrors(this::chooseArmaDir) );
+                AppCommons.wrapErrors(this::chooseArmaDir) );
         controller.btn_mini.setOnAction(event -> primaryStage.setIconified(true));
         controller.btn_vk.setOnAction(event ->
-                Commons.wrapErrors(() -> Desktop.getDesktop().browse(URI.create("https://vk.com/revenge_of_the_republic"))) );
+                AppCommons.wrapErrors(() -> Desktop.getDesktop().browse(URI.create("https://vk.com/revenge_of_the_republic"))) );
         controller.btn_dis.setOnAction(event ->
-                Commons.wrapErrors(() -> Desktop.getDesktop().browse(URI.create("https://discord.gg/MYHY27DrSQ"))) );
+                AppCommons.wrapErrors(() -> Desktop.getDesktop().browse(URI.create("https://discord.gg/MYHY27DrSQ"))) );
     }
 
     private void setDraggable() {
@@ -98,7 +103,7 @@ public class Application extends javafx.application.Application {
 
     private void connect() {
         if (mainInst != null && !mainInst.isDone()) return;
-        Commons.wrapErrors(() -> {
+        AppCommons.wrapErrors(() -> {
             controller.btn_connect.setDisable(true);
             mainInst = new Main();
             mainInst.setOnDone(() -> controller.btn_connect.setDisable(false));
@@ -110,7 +115,7 @@ public class Application extends javafx.application.Application {
                         alert.setHeaderText(STR.getString("main.outdated.title"));
                         alert.show();
                     });
-                } else Commons.onErrorWrapper().accept(throwable);
+                } else AppCommons.onErrorWrapper().accept(throwable);
             });
             mainInst.start();
         }, STR.getString("err.start"));
@@ -118,7 +123,7 @@ public class Application extends javafx.application.Application {
 
     private void chooseArmaDir() {
         File file = null;
-        File curr = Options.getArmaDir();
+        File curr = Config.getArmaDir();
         do {
 
             DirectoryChooser fc = new DirectoryChooser();
@@ -142,8 +147,8 @@ public class Application extends javafx.application.Application {
         } while (file != null && !Commons.isArmaDir(file.getAbsolutePath()));
 
         if (file != null) {
-            Options.setArmaDir(file.getAbsolutePath());
-            updPath(Options.getArmaDir());
+            Config.setArmaDir(file.getAbsolutePath());
+            updPath(Config.getArmaDir());
         }
     }
 
@@ -160,18 +165,18 @@ public class Application extends javafx.application.Application {
     }
 
     private File getArmaDir() {
-        File armaDir = Options.getArmaDir();
+        File armaDir = Config.getArmaDir();
         if (armaDir == null) {
             String dir = seekArmaDir();
             if (dir != null) {
                 File file = new File(dir);
-                Options.setArmaDir(file.getAbsolutePath());
+                Config.setArmaDir(file.getAbsolutePath());
                 armaDir = file;
             }
         }
         if (armaDir != null && !Commons.isArmaDir(armaDir.getAbsolutePath())) {
             armaDir = null;
-            Options.setArmaDir("");
+            Config.setArmaDir("");
         }
         return armaDir;
     }
@@ -204,11 +209,11 @@ public class Application extends javafx.application.Application {
     }
 
     private void checkOptions() {
-        if (Options.optFile == null) {
-            String err = Options.optError != null
+        if (Config.optFile == null) {
+            String err = Config.optError != null
                     ? String.format("%s: %s",
-                            Options.optError.getClass().getSimpleName(),
-                            Options.optError.getLocalizedMessage() )
+                            Config.optError.getClass().getSimpleName(),
+                            Config.optError.getLocalizedMessage() )
                     : "";
             Alert alert = new Alert(Alert.AlertType.ERROR, String.format(STR.getString("err.opts"), err));
             alert.setHeaderText(STR.getString("err"));
@@ -216,6 +221,6 @@ public class Application extends javafx.application.Application {
             return;
         }
 
-        Options.initOptions();
+        Config.initOptions();
     }
 }

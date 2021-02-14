@@ -6,7 +6,9 @@ import java.util.Properties;
 
 import static ru.zont.rotrlauncher.Commons.*;
 
-public class Options {
+public class Config {
+    public static final String PREFIX_GAME = "game";
+
     private static final String OPTIONS_FILENAME = "options.properties";
     private static Properties options = null;
 
@@ -40,8 +42,6 @@ public class Options {
     public static void initOptions() {
         Properties def = new Properties() {{
             setProperty("a3dir", "");
-            setProperty("modsDir", "");
-            setProperty("modsInA3dir", "true");
         }};
 
         try {
@@ -87,4 +87,36 @@ public class Options {
         set("a3dir", dir);
     }
 
+    public static String getSetting(String prefix, String key) {
+        checkState();
+        String property = options.getProperty(String.format("%s.%s", prefix, key), "");
+        if (property.trim().isEmpty()) return null;
+        return property;
+    }
+
+    public static void storeSetting(String prefix, String key, Object val) {
+        checkState();
+        String fKey = String.format("%s.%s", prefix, key);
+        if (val instanceof Boolean)
+            set(fKey, (Boolean) val ? "true" : "false");
+        else set(fKey, val.toString());
+    }
+
+    public static boolean getSettingB(String prefixGame, String key) {
+        String setting = getSetting(prefixGame, key);
+        if (setting == null) throw new NullPointerException();
+        return "true".equals(setting);
+    }
+
+    public static String getVersion() {
+        String version = null;
+        try {
+            Properties p = new Properties();
+            p.load(Config.class.getResourceAsStream("/version.properties"));
+            version = p.getProperty("version", null);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return version != null ? version : "UNKNOWN";
+    }
 }

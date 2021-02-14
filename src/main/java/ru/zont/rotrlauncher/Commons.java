@@ -1,6 +1,15 @@
 package ru.zont.rotrlauncher;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Node;
+import javafx.util.Duration;
 import ru.zont.rotrlauncher.app.ErrorDialog;
 import ru.zont.rotrlauncher.app.Strings;
 
@@ -40,48 +49,4 @@ public class Commons {
         return false;
     }
 
-    public static void wrapErrors(WRunnable r) {
-        wrapErrors(r, null);
-    }
-
-    public static void wrapErrors(WRunnable r, String err) {
-        try {
-            r.run();
-        } catch (Throwable e) {
-            reportError(err, e);
-        }
-    }
-
-    public static void wrapErrorsAsync(WRunnable r) {
-        wrapErrorsAsync(r, null);
-    }
-
-    public static void wrapErrorsAsync(WRunnable r, String err) {
-        new Thread(() -> wrapErrors(r, err)).start();
-    }
-
-    public static Consumer<Throwable> onErrorWrapper() {
-        return throwable -> {
-            reportError(null, throwable);
-        };
-    }
-
-    private static void reportError(String err, Throwable e) {
-        Platform.runLater(() -> {
-            StringWriter sw = new StringWriter();
-            e.printStackTrace(new PrintWriter(sw));
-            String st = sw.toString();
-            System.err.println(st);
-
-
-            new ErrorDialog(
-                    err != null ? err : Strings.STR.getString("err"),
-                    st
-            ).show();
-        });
-    }
-
-    public interface WRunnable {
-        void run() throws Throwable;
-    }
 }
