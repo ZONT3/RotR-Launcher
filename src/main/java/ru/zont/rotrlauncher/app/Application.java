@@ -66,7 +66,7 @@ public class Application extends javafx.application.Application {
             controller.online.setText(String.format("%02d", i));
             controller.online_players.setText(" " + Strings.countPlayers(i));
         }));
-        onlineListener.setOnError(AppCommons.onErrorWrapper());
+        onlineListener.setOnError(Throwable::printStackTrace);
         onlineListener.start();
     }
 
