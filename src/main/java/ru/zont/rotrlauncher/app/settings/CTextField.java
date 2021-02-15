@@ -15,6 +15,7 @@ public class CTextField extends SettingsPane {
         ObservableList<String> styleClass = textField.getStyleClass();
         styleClass.add("settings-window");
         styleClass.add("settings-window-textfield");
+        if (getTooltip() != null) textField.setTooltip(getTooltip());
 
         add(textField, 1, 0);
     }

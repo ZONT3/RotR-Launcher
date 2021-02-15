@@ -13,7 +13,7 @@ import java.util.function.Consumer;
 
 import static ru.zont.rotrlauncher.app.Strings.STR;
 
-public class GameSettings extends SettingsWindow {
+public class GameSettingsWindow extends SettingsWindow {
 
     private static class Entry<T extends SettingsPane> {
 
@@ -65,14 +65,14 @@ public class GameSettings extends SettingsWindow {
         }
     }
 
-    private static final Node[] list = {
-            new CSection(STR.getString("settings.game.sect.performance")),
-            Entry.newEntry(new CCheckBox(STR.getString("settings.game.skipIntro")), "skipIntro", Boolean.TRUE),
-            Entry.newEntry(new CCheckBox(STR.getString("settings.game.noSplash")), "noSplash", Boolean.TRUE)
-    };
-
     @Override
     public List<Node> getList() {
-        return Arrays.asList(list);
+        return Arrays.asList(
+            new CSection(STR.getString("settings.game.sect.performance")),
+            Entry.newEntry(new CCheckBox("settings.game.skipIntro"), "skipIntro", Boolean.TRUE),
+            Entry.newEntry(new CCheckBox("settings.game.noSplash"), "noSplash", Boolean.TRUE),
+            Entry.newEntry(new CCheckBox("settings.game.enableHT"), "enableHT", Boolean.TRUE),
+            Entry.newEntry(new CCheckBox("settings.game.hugePages"), "hugePages", Boolean.TRUE)
+        );
     }
 }

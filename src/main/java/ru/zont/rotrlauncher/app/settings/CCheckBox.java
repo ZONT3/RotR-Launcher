@@ -9,6 +9,7 @@ public class CCheckBox extends SettingsPane {
     public CCheckBox(String title) {
         super(title);
         checkBox = new CheckBox();
+        if (getTooltip() != null) checkBox.setTooltip(getTooltip());
         add(checkBox, 1, 0);
     }
 

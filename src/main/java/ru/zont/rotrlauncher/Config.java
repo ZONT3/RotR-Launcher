@@ -102,6 +102,12 @@ public class Config {
         else set(fKey, val.toString());
     }
 
+    public static boolean getSettingB(String prefixGame, String key, boolean defaultValue) {
+        String setting = getSetting(prefixGame, key);
+        if (setting == null) return defaultValue;
+        return "true".equals(setting);
+    }
+
     public static boolean getSettingB(String prefixGame, String key) {
         String setting = getSetting(prefixGame, key);
         if (setting == null) throw new NullPointerException();

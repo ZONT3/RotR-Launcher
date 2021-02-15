@@ -59,12 +59,14 @@ public class Main extends Thread implements ReportingError {
 
         StringBuilder builder = new StringBuilder();
         builder.append("\"").append(file.getAbsolutePath()).append("\"");
-        if (Config.getSettingB(Config.PREFIX_GAME, "skipIntro"))
+        if (Config.getSettingB(Config.PREFIX_GAME, "skipIntro", true))
             builder.append(" ").append("-skipIntro");
-        if (Config.getSettingB(Config.PREFIX_GAME, "noSplash"))
+        if (Config.getSettingB(Config.PREFIX_GAME, "noSplash", true))
             builder.append(" ").append("-noSplash");
-        builder.append(" ").append("-enableHT");
-        builder.append(" ").append("-hugePages");
+        if (Config.getSettingB(Config.PREFIX_GAME, "enableHT", true))
+            builder.append(" ").append("-enableHT");
+        if (Config.getSettingB(Config.PREFIX_GAME, "hugePages", true))
+            builder.append(" ").append("-hugePages");
 
         builder.append(" ")
                 .append("\"-mod=")

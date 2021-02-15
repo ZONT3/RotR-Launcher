@@ -21,7 +21,9 @@ public class SettingsStage extends Stage {
 
     private final SettingsStageController controller;
 
-    public SettingsStage(GameSettings settings) {
+    private GameSettingsWindow gameSettings;
+
+    public SettingsStage() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/settings.fxml"));
             root = loader.load();
@@ -42,7 +44,12 @@ public class SettingsStage extends Stage {
 
         setScene(scene);
 
-        setWindow(settings);
+        setupWindows();
+    }
+
+    private void setupWindows() {
+        gameSettings = new GameSettingsWindow();
+        setWindow(gameSettings);
     }
 
     private void setupOnActions() {

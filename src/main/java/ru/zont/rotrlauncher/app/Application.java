@@ -10,7 +10,7 @@ import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import ru.zont.rotrlauncher.*;
-import ru.zont.rotrlauncher.app.settings.GameSettings;
+import ru.zont.rotrlauncher.app.settings.GameSettingsWindow;
 import ru.zont.rotrlauncher.app.settings.SettingsStage;
 
 import java.awt.*;
@@ -21,7 +21,7 @@ import static ru.zont.rotrlauncher.app.Strings.STR;
 
 public class Application extends javafx.application.Application {
 
-    private GameSettings settings;
+    private GameSettingsWindow settings;
     private double xOffset = 0;
     private double yOffset = 0;
 
@@ -50,7 +50,7 @@ public class Application extends javafx.application.Application {
 
         checkOptions();
         updPath(getArmaDir());
-        settings = new GameSettings();
+        settings = new GameSettingsWindow();
 
         setDraggable();
         setupOnActions();
@@ -73,7 +73,7 @@ public class Application extends javafx.application.Application {
     private void setupOnActions() {
         controller.btn_connect.setOnAction(event -> connect());
         controller.btn_close.setOnAction(event -> AppCommons.fadeOut(controller.root, e -> primaryStage.close()));
-        controller.btn_settings.setOnAction(event -> new SettingsStage(settings).show());
+        controller.btn_settings.setOnAction(event -> new SettingsStage().show());
         controller.btn_locate.setOnAction(event ->
                 AppCommons.wrapErrors(this::chooseArmaDir) );
         controller.btn_mini.setOnAction(event -> primaryStage.setIconified(true));
