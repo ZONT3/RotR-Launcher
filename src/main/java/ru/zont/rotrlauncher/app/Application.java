@@ -72,7 +72,7 @@ public class Application extends javafx.application.Application {
 
     private void setupOnActions() {
         controller.btn_connect.setOnAction(event -> connect());
-        controller.btn_close.setOnAction(event -> AppCommons.fadeOut(controller.root, e -> primaryStage.close()));
+        controller.btn_close.setOnAction(event -> AppCommons.fadeOut(controller.root, 100, e -> primaryStage.close()));
         controller.btn_settings.setOnAction(event -> new SettingsStage().show());
         controller.btn_locate.setOnAction(event ->
                 AppCommons.wrapErrors(this::chooseArmaDir) );

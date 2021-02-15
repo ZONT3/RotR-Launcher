@@ -55,19 +55,19 @@ public class AppCommons {
         });
     }
 
-    public static void fadeIn(Node node, EventHandler<ActionEvent> onFinish) {
-        fade(node, onFinish, 0f, 1f);
+    public static void fadeIn(Node node, int duration, EventHandler<ActionEvent> onFinish) {
+        fade(node, 0f, 1f, duration, onFinish);
     }
 
-    public static void fadeOut(Node node, EventHandler<ActionEvent> onFinish) {
-        fade(node, onFinish, 1f, 0f);
+    public static void fadeOut(Node node, int duration, EventHandler<ActionEvent> onFinish) {
+        fade(node, 1f, 0f, duration, onFinish);
     }
 
-    private static void fade(Node node, EventHandler<ActionEvent> onFinish, float start, float finish) {
+    private static void fade(Node node, float start, float finish, int duration, EventHandler<ActionEvent> onFinish) {
         ObjectProperty<Float> value = new SimpleObjectProperty<>();
         KeyFrame[] keyValues = {
                 new KeyFrame(Duration.ZERO, new KeyValue(value, start)),
-                new KeyFrame(Duration.millis(100), new KeyValue(value, finish))
+                new KeyFrame(Duration.millis(duration), new KeyValue(value, finish))
         };
         Timeline timeline = new Timeline(keyValues);
         value.addListener((observable, oldValue, newValue) -> node.setStyle("-fx-opacity: " + newValue));

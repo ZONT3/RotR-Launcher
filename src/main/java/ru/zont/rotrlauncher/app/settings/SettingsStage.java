@@ -10,6 +10,8 @@ import javafx.stage.StageStyle;
 import ru.zont.rotrlauncher.app.AppCommons;
 
 import java.io.IOException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class SettingsStage extends Stage {
 
@@ -53,9 +55,9 @@ public class SettingsStage extends Stage {
     }
 
     private void setupOnActions() {
-        controller.btn_close.setOnAction(e -> AppCommons.fadeOut(root, ee -> close()));
+        controller.btn_close.setOnAction(e -> AppCommons.fadeOut(root, 100, ee -> close()));
 
-        setOnShowing(n -> AppCommons.fadeIn(root, null));
+        setOnShowing(n -> AppCommons.fadeIn(root, 100, null));
     }
 
     private void setDraggable() {
@@ -72,5 +74,16 @@ public class SettingsStage extends Stage {
     public void setWindow(SettingsWindow window) {
         controller.window.getChildren().clear();
         controller.window.getChildren().addAll(window.getList());
+
+        if (window instanceof GameSettingsWindow) {
+            controller.settings_tooltip.setVisible(true);
+            Timer t = new Timer("Settings Tooltip Timer Daemon", true);
+            t.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    AppCommons.fadeOut(controller.settings_tooltip, 200, null);
+                }
+            }, 7000);
+        } else controller.settings_tooltip.setVisible(false);
     }
 }

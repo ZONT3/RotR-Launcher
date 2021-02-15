@@ -43,7 +43,7 @@ public class SettingsPane extends GridPane {
         if (STR.containsKey(key)) {
             tooltip = new Tooltip(STR.getString(key));
             tooltip.setWrapText(true);
-            tooltip.setMaxWidth(150);
+            tooltip.setMaxWidth(400);
             titleLabel.setTooltip(tooltip);
         }
 

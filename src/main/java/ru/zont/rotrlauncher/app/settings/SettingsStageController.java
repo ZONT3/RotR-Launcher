@@ -16,9 +16,11 @@ public class SettingsStageController implements Initializable {
     public Button btn_sect_authors;
     public VBox window;
     public Label version;
+    public Label settings_tooltip;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         version.setText(String.format(Strings.STR.getString("name.version"), Config.getVersion()));
+        settings_tooltip.setText(String.format(Strings.STR.getString("settings.tooltip")));
     }
 }
