@@ -10,18 +10,18 @@ import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import ru.zont.rotrlauncher.*;
-import ru.zont.rotrlauncher.app.settings.GameSettingsWindow;
 import ru.zont.rotrlauncher.app.settings.SettingsStage;
 
 import java.awt.*;
 import java.io.File;
 import java.net.URI;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import static ru.zont.rotrlauncher.app.Strings.STR;
 
 public class Application extends javafx.application.Application {
 
-    private GameSettingsWindow settings;
     private double xOffset = 0;
     private double yOffset = 0;
 
@@ -29,6 +29,9 @@ public class Application extends javafx.application.Application {
     private MainController controller;
     private Stage primaryStage;
     private OnlineListener onlineListener;
+
+    private final Timer quitTimer = new Timer("Quit Timer", true);
+    private static final long QUIT_TIME = 2000;
 
     public static void main(String[] args) {
         launch(args);
@@ -50,7 +53,6 @@ public class Application extends javafx.application.Application {
 
         checkOptions();
         updPath(getArmaDir());
-        settings = new GameSettingsWindow();
 
         setDraggable();
         setupOnActions();
@@ -106,9 +108,22 @@ public class Application extends javafx.application.Application {
         AppCommons.wrapErrors(() -> {
             controller.btn_connect.setDisable(true);
             mainInst = new Main();
-            mainInst.setOnDone(() -> controller.btn_connect.setDisable(false));
             mainInst.setOnX86Warning(() -> Platform.runLater(() -> new Alert(Alert.AlertType.WARNING, STR.getString("warn.x86")).show()));
+            mainInst.setOnDone(() -> {
+                controller.btn_connect.setDisable(false);
+                if (Config.getSettingB(Config.PREFIX_LAUNCHER, "close", true)) {
+                    try {
+                        quitTimer.schedule(new TimerTask() {
+                            @Override
+                            public void run() {
+                                Platform.runLater(primaryStage::close);
+                            }
+                        }, QUIT_TIME);
+                    } catch (IllegalStateException ignored) { }
+                }
+            });
             mainInst.setOnError(throwable -> {
+                quitTimer.cancel();
                 if (throwable instanceof ModsOutdatedException) {
                     Platform.runLater(() -> {
                         Alert alert = new Alert(Alert.AlertType.ERROR, STR.getString("main.outdated"));

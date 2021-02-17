@@ -18,7 +18,7 @@ public class SettingsPane extends GridPane {
     public SettingsPane(String titleRes) {
         ColumnConstraints columnTitle = new ColumnConstraints();
         columnTitle.setMinWidth(50);
-        columnTitle.setPercentWidth(40);
+        columnTitle.setPercentWidth(60);
         columnTitle.setHgrow(Priority.SOMETIMES);
 
         ColumnConstraints columnValue = new ColumnConstraints();

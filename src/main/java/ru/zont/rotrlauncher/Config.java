@@ -8,6 +8,7 @@ import static ru.zont.rotrlauncher.Commons.*;
 
 public class Config {
     public static final String PREFIX_GAME = "game";
+    public static final String PREFIX_LAUNCHER = "launcher";
 
     private static final String OPTIONS_FILENAME = "options.properties";
     private static Properties options = null;

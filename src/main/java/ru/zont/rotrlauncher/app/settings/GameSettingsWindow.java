@@ -17,19 +17,21 @@ public class GameSettingsWindow extends SettingsWindow {
 
     private static class Entry<T extends SettingsPane> {
 
-        public static <T extends SettingsPane> T newEntry(T pane, String property, Object defaultValue) {
-            return new Entry<T>(pane, property, defaultValue).getNode();
+        public static <T extends SettingsPane> T newEntry(T pane, String prefix, String property, Object defaultValue) {
+            return new Entry<T>(pane, prefix, property, defaultValue).getNode();
         }
 
+        private final String prefix;
         private final T pane;
         private final String property;
         private final Consumer<Object> valueSetter;
         private final Callback<String, Object> valueCaster;
         private final DeferredTask<Object> dt = new DeferredTask<>(2000, this::storeValue);
 
-        private Entry(T pane, String property, Object defaultValue) {
+        private Entry(T pane, String prefix, String property, Object defaultValue) {
             this.pane = pane;
             this.property = property;
+            this.prefix = prefix;
 
             if (pane instanceof CCheckBox) {
                 CCheckBox cb = (CCheckBox) pane;
@@ -49,11 +51,11 @@ public class GameSettingsWindow extends SettingsWindow {
         }
 
         private void storeValue(Object value) {
-            Config.storeSetting(Config.PREFIX_GAME, property, value);
+            Config.storeSetting(prefix, property, value);
         }
 
         private void initValue(Object def) {
-            String p = Config.getSetting(Config.PREFIX_GAME, property);
+            String p = Config.getSetting(prefix, property);
             if (p == null) {
                 valueSetter.accept(def);
                 storeValue(def);
@@ -69,10 +71,12 @@ public class GameSettingsWindow extends SettingsWindow {
     public List<Node> getList() {
         return Arrays.asList(
             new CSection(STR.getString("settings.game.sect.performance")),
-            Entry.newEntry(new CCheckBox("settings.game.skipIntro"), "skipIntro", Boolean.TRUE),
-            Entry.newEntry(new CCheckBox("settings.game.noSplash"), "noSplash", Boolean.TRUE),
-            Entry.newEntry(new CCheckBox("settings.game.enableHT"), "enableHT", Boolean.TRUE),
-            Entry.newEntry(new CCheckBox("settings.game.hugePages"), "hugePages", Boolean.TRUE)
+            Entry.newEntry(new CCheckBox("settings.game.skipIntro"), Config.PREFIX_GAME, "skipIntro", Boolean.TRUE),
+            Entry.newEntry(new CCheckBox("settings.game.noSplash"), Config.PREFIX_GAME, "noSplash", Boolean.TRUE),
+            Entry.newEntry(new CCheckBox("settings.game.enableHT"), Config.PREFIX_GAME, "enableHT", Boolean.TRUE),
+            Entry.newEntry(new CCheckBox("settings.game.hugePages"), Config.PREFIX_GAME, "hugePages", Boolean.TRUE),
+            new CSection(STR.getString("settings.launcher.sect")),
+            Entry.newEntry(new CCheckBox("settings.launcher.close"), Config.PREFIX_LAUNCHER, "close", Boolean.TRUE)
         );
     }
 }
