@@ -24,11 +24,11 @@ public class Main extends Thread implements ReportingError {
                 throw new ModsOutdatedException();
 
             File armaDir = Config.getArmaDir();
-            String params = buildParams(armaDir);
+            File exe = findExe(armaDir);
+            String params = buildParams();
 
             System.out.println("Starting arma with params: " + params);
-
-            Runtime.getRuntime().exec(String.format("cmd /c \"%s\"", params), null, armaDir);
+            Runtime.getRuntime().exec(String.format("cmd /c start %s %s", exe.getName(), params), null, armaDir).waitFor();
         } catch (Throwable e) {
             if (onError != null)
                 onError.accept(e);
@@ -38,13 +38,7 @@ public class Main extends Thread implements ReportingError {
         }
     }
 
-    private void done() {
-        done = true;
-        if (onDone != null)
-            onDone.run();
-    }
-
-    private String buildParams(File armaDir) {
+    private File findExe(File armaDir) {
         if (armaDir == null || !Commons.isArmaDir(armaDir.getAbsolutePath()))
             throw new IllegalStateException("Invalid Arma 3 path!");
 
@@ -57,8 +51,11 @@ public class Main extends Thread implements ReportingError {
                 onX86Warning.run();
         }
 
+        return file;
+    }
+
+    private String buildParams() {
         StringBuilder builder = new StringBuilder();
-        builder.append("\"").append(file.getAbsolutePath()).append("\"");
         if (Config.getSettingB(Config.PREFIX_GAME, "skipIntro", true))
             builder.append(" ").append("-skipIntro");
         if (Config.getSettingB(Config.PREFIX_GAME, "noSplash", true))
@@ -73,7 +70,13 @@ public class Main extends Thread implements ReportingError {
                 .append(wrapMods(Mods.getMods()))
                 .append("\"");
 
-        return builder.toString();
+        return builder.toString().trim();
+    }
+
+    private void done() {
+        done = true;
+        if (onDone != null)
+            onDone.run();
     }
 
     private String wrapMods(String mods) {
